@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 const fs = require('fs');
 const path = require('path');
 const { spawn } = require('child_process');
@@ -49,9 +51,8 @@ fs.readdir(path.join(__dirname, 'tests'), (err, testFiles) => {
         console.log(output.join('\n'));
         resolve();
       });
-    }))
+    })),
   ).then(() => {
-
     console.log('Test run complete:');
     console.log(`  Total: ${testFiles.length}`);
 
@@ -60,9 +61,9 @@ fs.readdir(path.join(__dirname, 'tests'), (err, testFiles) => {
     print('\n');
 
     print('  Fail:  ');
-    print(failures.length, COLOR.RED);
+    print(failures.length, failures.length ? COLOR.RED : COLOR.GREEN);
     print('\n');
 
-    process.exit(failures.length)
+    process.exit(failures.length);
   });
 });

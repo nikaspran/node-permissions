@@ -6,6 +6,12 @@
   "author": "Nikas Praninskas <nikaspran@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "node ./src/index.spec.js"
+    "test": "node ./src/index.spec.js",
+    "lint": "eslint ./src"
+  },
+  "devDependencies": {
+    "eslint": "5.9.0",
+    "eslint-config-airbnb-base": "13.1.0",
+    "eslint-plugin-import": "2.14.0"
   }
 }

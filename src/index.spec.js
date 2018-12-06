@@ -48,11 +48,15 @@ fs.readdir(path.join(__dirname, 'tests'), (err, testFiles) => {
           print('FAIL\n', COLOR.RED);
         }
 
-        console.log(output.join('\n'));
+        const logs = output.join('\n');
+        if (logs) {
+          console.log(logs);
+        }
         resolve();
       });
     })),
   ).then(() => {
+    console.log('\n====================');
     console.log('Test run complete:');
     console.log(`  Total: ${testFiles.length}`);
 

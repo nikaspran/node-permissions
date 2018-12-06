@@ -40,18 +40,16 @@ function protect({ rules = [] } = {}) {
 
   const originalLoad = nodeModule._load; // eslint-disable-line no-underscore-dangle
   function loadWithPermissions(path, loadingFrom, isMain) {
-    const baseError = `Module ${loadingFrom.filename} is not allowed to require ${path}`;
-
     const ruleForModule = rulesByModule[path]; // TODO: allow multiple rules for same path
     if (!ruleForModule) {
-      throw new PermissionDenied(`${baseError}: No rule defined`);
+      throw new PermissionDenied(`No rules defined for require(${path})`);
     }
 
     if (permits({ rule: ruleForModule, path, loadingFrom, isMain })) {
       return originalLoad.apply(undefined, arguments); // eslint-disable-line prefer-spread, prefer-rest-params
     }
 
-    throw new PermissionDenied(`${baseError}`);
+    throw new PermissionDenied(`Module ${loadingFrom.filename} is not allowed to require(${path})`);
   }
 
   Object.defineProperty(nodeModule, '_load', {

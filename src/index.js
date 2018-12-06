@@ -33,15 +33,6 @@ function protect({
     [rule.module]: rule,
   }), {});
 
-  const originalCache = require.cache;
-  Object.defineProperty(require, 'cache', {
-    enumerable: true,
-    configurable: false,
-    get() {
-      return originalCache;
-    },
-  });
-
   function maybeLogAndThrow(error) {
     if (logging) {
       logging(`node-permissions: ${error}`);
